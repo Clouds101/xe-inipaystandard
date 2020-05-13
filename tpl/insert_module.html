@@ -72,6 +72,14 @@
 			</div>
 		</div>
 		<div class="x_control-group">
+			<label class="x_control-label" for="inipay_iniapikey">INIAPI key</label>
+			<div class="x_controls">
+				<input type="text" name="inipay_iniapikey" id="inipay_iniapikey" value="{$module_info->inipay_iniapikey}" />
+				<a href="#inipay_iniapikey_help" class="x_icon-question-sign" data-toggle>{$lang->help}</a>
+				<p id="inipay_iniapikey_help" class="x_help-block" hidden>{$lang->about_inipay_iniapikey}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
 			<label class="x_control-label" for="ini_payment_test_mode">{$lang->ini_payment_test_mode}</label>
 			<div class="x_controls">
 				<label for="ini_payment_test_mode"><input type="checkbox" name="ini_payment_test_mode" value="Y" checked="checked"|cond="$module_info->ini_payment_test_mode=='Y'" id="ini_payment_test_mode" />{$lang->about_ini_payment_test_mode}</label>

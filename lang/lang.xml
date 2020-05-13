@@ -24,6 +24,9 @@
 	<item name="about_inipay_signkey">
 		<value xml:lang="ko"><![CDATA[이니시스 가맹점 관리자 페이지의 상점정보 > 계약정보 > 부가정보의 웹결제 signkey를 생성할 수 있습니다.]]></value>
 	</item>
+	<item name="about_inipay_iniapikey">
+		<value xml:lang="ko"><![CDATA[이니시스 가맹점 관리자 페이지의 상점정보 > 계약정보 > 부가정보의 INIAPI Key를 생성할 수 있습니다.]]></value>
+	</item>
 	<item name="default_guide_creditcard">
 		<value xml:lang="ko"><![CDATA[카드 결제 시 해당 카드사에서 제공하는 인증 결제창이 카드사 사정에따라 다소 지연될 수 있습니다.<br />결제하기를 클릭하시고 잠시 기다려주세요.]]></value>
 		<value xml:lang="en"><![CDATA[Click payment button and wait a second, please]]></value>

@@ -380,4 +380,102 @@ class inipaystandardController extends inipaystandard
 				break;
 		}
 	}
+
+	/**
+	 * @brief 이니시스 카드 결제 전체 취소
+	 */
+	function doCancleIt($in_args)
+	{
+		$oModuleModel = getModel('module');
+		// update transaction info
+		$oEpayModel = getModel('epay');
+		$transaction_info = $oEpayModel->getTransactionByOrderSrl($in_args->order_srl);
+
+		if($transaction_info->state == "A") return false;
+
+		$sel_args = new stdClass;
+		$sel_args->sort_index = "module_srl";
+		$sel_args->page = 0;
+		$sel_args->list_count = 1;
+		$sel_args->page_count = 1;
+		$output_sel = executeQueryArray('inipaystandard.getModuleList', $sel_args);
+		foreach($output_sel->data as $n=>$pgval){
+			$def_md_info = $pgval;
+			break;
+		}
+
+		$ini_pg_info = $oModuleModel->getModuleInfoByModuleSrl($def_md_info->module_srl);
+
+		$reason = "관리자 취소";
+
+		require_once('libs/INIStdPayUtil.php');
+	
+		$util = new INIStdPayUtil();
+	
+		$authMap = array();
+		$iniapi_pay_key = $ini_pg_info->inipay_iniapikey;
+		$authMap["type"] = "Refund";
+		$authMap["mid"] = $ini_pg_info->inipay_mid;
+		$authMap["paymethod"] = "Card";
+		$authMap["timestamp"] = date("YmdHis");
+		$authMap["clientIp"] = $_SERVER['SERVER_ADDR'];
+		$authMap["tid"] = $in_args->pg_tid;
+		$authMap["msg"] = $reason;
+		$authMap["charset"] = 'UTF-8';
+		$has_ori = $iniapi_pay_key.$authMap["type"].$authMap["paymethod"].$authMap["timestamp"].$authMap["clientIp"].$authMap["mid"].$authMap["tid"];
+		$mKey = $util->makeHash($has_ori, "sha512");
+		$authMap["hashData"] = $mKey;
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://iniapi.inicis.com/api/v1/refund");
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($authMap));
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); 
+		$chRs = curl_exec ($ch);
+		$chCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
+		if($chCode == 200)
+		{
+			$ini_result = json_decode($chRs);
+			if(!$ini_result) return false;
+		
+			$u_args = new stdClass();
+			$u_args->transaction_srl = $transaction_info->transaction_srl;
+			$u_args->result_code = $ini_result->resultCode;
+			$u_args->result_message = $ini_result->resultMsg;
+			$u_args->pg_tid = $in_args->pg_tid;
+			if($ini_result->resultCode == "00")
+			{
+				$u_args->state = "A";
+			}
+			else
+			{
+				$u_args->state = $transaction_info->state;
+			}
+
+			$extra_vars = unserialize($transaction_info->extra_vars);
+			foreach($ini_result as $key => $val)
+			{
+				$extra_vars->{$key} = $val;
+			}
+
+			$u_args->extra_vars = serialize($extra_vars);
+			$output = executeQuery('epay.updateTransaction', $u_args);
+			if(!$output->toBool())
+			{
+				return false;
+			}
+
+			return true;
+
+		}else{
+			return false;
+		}
+
+		return false;
+
+	}
 }
