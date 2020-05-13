@@ -206,6 +206,13 @@ class inipaystandardController extends inipaystandard
 			return $this->makeObject(-1, 'could not find transaction');
 		}
 
+		if($transaction_info->state == 2)
+		{
+			Context::close();
+			echo "OK";
+			exit;
+		}
+
 		// PG 서버에서 보냈는지 IP 체크 (보안)
 		$pgIpArray = array(
 			'203.238.37.3',
