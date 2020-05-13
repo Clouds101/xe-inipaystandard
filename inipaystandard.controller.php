@@ -448,7 +448,7 @@ class inipaystandardController extends inipaystandard
 		{
 			$ini_result = json_decode($chRs);
 			if(!$ini_result) return false;
-		
+
 			$u_args = new stdClass();
 			$u_args->transaction_srl = $transaction_info->transaction_srl;
 			$u_args->result_code = $ini_result->resultCode;
@@ -457,6 +457,7 @@ class inipaystandardController extends inipaystandard
 			if($ini_result->resultCode == "00")
 			{
 				$u_args->state = "A";
+				$this->insertCardCancleLog($transaction_info,"A");
 			}
 			else
 			{
@@ -483,6 +484,12 @@ class inipaystandardController extends inipaystandard
 		}
 
 		return false;
+	}
 
+	function insertCardCancleLog($log_args,$insert_type="A")
+	{
+		$log_args->cancle_amount = $log_args->payment_amount;
+		$log_args->cancle_type = $insert_type;
+		executeQueryArray("inipaystandard.insertCancleLog",$log_args);
 	}
 }
