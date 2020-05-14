@@ -597,13 +597,13 @@ class inipaystandardController extends inipaystandard
 	function insertCardCancleLog($log_args,$insert_type="A")
 	{
 		$log_args->cancle_type = $insert_type;
+		unset($log_args->regdate);
 		if($insert_type == "A")
 		{
 			$log_args->cancle_amount = $log_args->payment_amount;
 		}
 		else
 		{
-			
 			$log_args->cancle_amount = $log_args->part_cancle_amount;
 		}
 		executeQueryArray("inipaystandard.insertCancleLog",$log_args);
