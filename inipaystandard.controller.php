@@ -412,6 +412,8 @@ class inipaystandardController extends inipaystandard
 		}
 
 		$ini_pg_info = $oModuleModel->getModuleInfoByModuleSrl($def_md_info->module_srl);
+		
+		if($ini_pg_info->ini_card_auto_cancle != "Y") return false;
 
 		$reason = "관리자 취소";
 

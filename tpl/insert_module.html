@@ -80,6 +80,12 @@
 			</div>
 		</div>
 		<div class="x_control-group">
+			<label class="x_control-label" for="ini_card_auto_cancle">{$lang->inipay_card_cancle}</label>
+			<div class="x_controls">
+				<label for="ini_card_auto_cancle"><input type="checkbox" name="ini_card_auto_cancle" value="Y" checked="checked"|cond="$module_info->ini_card_auto_cancle=='Y'" id="ini_card_auto_cancle" />{$lang->about_inipay_card_cancle}</label>
+			</div>
+		</div>
+		<div class="x_control-group">
 			<label class="x_control-label" for="ini_payment_test_mode">{$lang->ini_payment_test_mode}</label>
 			<div class="x_controls">
 				<label for="ini_payment_test_mode"><input type="checkbox" name="ini_payment_test_mode" value="Y" checked="checked"|cond="$module_info->ini_payment_test_mode=='Y'" id="ini_payment_test_mode" />{$lang->about_ini_payment_test_mode}</label>

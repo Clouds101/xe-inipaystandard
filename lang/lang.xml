@@ -18,6 +18,12 @@
 	<item name="inipay_mid">
 		<value xml:lang="ko"><![CDATA[가맹점 ID]]></value>
 	</item>
+	<item name="inipay_card_cancle">
+		<value xml:lang="ko"><![CDATA[카드 자동 취소]]></value>
+	</item>
+	<item name="about_inipay_card_cancle">
+		<value xml:lang="ko"><![CDATA[주문 상태 입금완료 -> 취소로 변경시 카드 결제를 자동 취소합니다.]]></value>
+	</item>
 	<item name="about_inipay_mid">
 		<value xml:lang="ko"><![CDATA[이니시스 가맹점 ID를 입력해주세요.]]></value>
 	</item>
