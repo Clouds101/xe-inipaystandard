@@ -589,6 +589,7 @@ class inipaystandardController extends inipaystandard
 				$transaction_info->part_cancle_amount = $ini_result->prtcPrice;
 				$transaction_info->part_cancle_type = $ini_result->prtcType;
 				$transaction_info->part_cancle_cnt = $ini_result->prtcCnt;
+				$transaction_info->cancle_desc = $in_args->cancle_desc;
 				$this->insertCardCancleLog($transaction_info,"P");
 				return $part_result;
 			}
