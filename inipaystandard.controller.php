@@ -494,10 +494,11 @@ class inipaystandardController extends inipaystandard
 	{
 		$oModuleModel = getModel('module');
 		$oEpayModel = getModel('epay');
-
+	
 		$ca_output = executeQueryArray("inipaystandard.getCancleListByOrderSrl",$in_args);
-		if(count($ca_output->data) > 0) return false;
-
+	
+		if(count($ca_output->data) == 0) return false;
+		
 		$transaction_info = $oEpayModel->getTransactionByOrderSrl($in_args->order_srl);
 
 		$total_price = $transaction_info->payment_amount;
@@ -522,15 +523,14 @@ class inipaystandardController extends inipaystandard
 
 		$ini_pg_info = $oModuleModel->getModuleInfoByModuleSrl($def_md_info->module_srl);
 		
-		if(trim($in_args->cancle_desc) == "")
-		{
-			$reason = "관리자 취소";
-		}
-		else
+		$reason = "관리자 취소";
+		if(trim($in_args->cancle_desc) != "")
 		{
 			$reason = trim($in_args->cancle_desc);
 		}
-		
+
+		$reason = cut_str($reason,40,"");
+	
 		require_once('libs/INIStdPayUtil.php');
 
 		$util = new INIStdPayUtil();
@@ -567,7 +567,6 @@ class inipaystandardController extends inipaystandard
 		$part_result->result = false;
 		if($chCode == 200)
 		{
-			
 			$ini_result = json_decode($chRs);
 			if(!$ini_result)
 			{
@@ -589,7 +588,7 @@ class inipaystandardController extends inipaystandard
 				$transaction_info->part_cancle_amount = $ini_result->prtcPrice;
 				$transaction_info->part_cancle_type = $ini_result->prtcType;
 				$transaction_info->part_cancle_cnt = $ini_result->prtcCnt;
-				$transaction_info->cancle_desc = $in_args->cancle_desc;
+				$transaction_info->cancle_desc = $reason;
 				$this->insertCardCancleLog($transaction_info,"P");
 				return $part_result;
 			}
@@ -599,6 +598,13 @@ class inipaystandardController extends inipaystandard
 				$part_result->result_desc = $u_args;
 				return $part_result;
 			}
+			return $ini_result;
+		}else{
+			$part_result->result = false;
+			$rs_end = new stdClass();
+			$rs_end->result_code = $chCode;
+			$rs_end->result_message = "CURL:".$chRs;
+			$part_result->result_desc = $rs_end;
 			return $ini_result;
 		}
 
