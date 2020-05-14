@@ -7,6 +7,7 @@
 * 업데이트전 반드시 관련 파일들을 백업합니다.
 * 해당 자료를 사용함으로써 일어나는 문제에 책임을 일체 지지 않습니다.
 <br/>
+
 ## 설치방법<br/>
 본 모듈(xe-inipaystandard) 업데이트 전.. <br/>
 아래 모듈을 다운로드 받아 업데이트합니다.<br/>
@@ -18,6 +19,7 @@
 ![nuri_admin_update](https://user-images.githubusercontent.com/21264714/81894763-90f43c80-95eb-11ea-9263-a5a893963cd8.png)<br/>
 XE 관리자 페이지 첫 화면에서 테이블생성
 <br/>
+
 ## 스크린샷<br/>
 ![Image of Admin](https://user-images.githubusercontent.com/21264714/81882974-069ddf80-95cf-11ea-8fb0-d1adac9c2811.png)
 <br/>
