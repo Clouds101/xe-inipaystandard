@@ -12,6 +12,12 @@
         <column name="cancle_type" var="cancle_type" notnull="notnull" />
         <column name="cancle_amount" var="cancle_amount" notnull="notnull" />
         <column name="pg_tid" var="pg_tid" />
+		<column name="ori_tid" var="ori_tid" />
+		<column name="part_tid" var="part_tid" />
+		<column name="part_remains_amount" var="part_remains_amount" />
+		<column name="part_cancle_amount" var="part_cancle_amount" />
+		<column name="part_cancle_type" var="part_cancle_type" />
+		<column name="part_cancle_cnt" var="part_cancle_cnt" />
         <column name="regdate" var="regdate" default="curdate()" />
     </columns>
 </query>

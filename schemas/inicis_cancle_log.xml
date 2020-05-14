@@ -9,5 +9,12 @@
 	<!-- A : all , B : part -->
 	<column name="cancle_type" type="char" size="1" />
 	<column name="pg_tid" type="varchar" size="250" />
+	<!-- part cancle log-->
+	<column name="ori_tid" type="varchar" size="250" />
+	<column name="part_tid" type="varchar" size="250" />
+	<column name="part_remains_amount" type="number" size="11" />
+	<column name="part_cancle_amount" type="number" size="11" />
+	<column name="part_cancle_type" type="char" size="1" />
+	<column name="part_cancle_cnt" type="number" size="11" />
 	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
 </table>
