@@ -521,7 +521,16 @@ class inipaystandardController extends inipaystandard
 		}
 
 		$ini_pg_info = $oModuleModel->getModuleInfoByModuleSrl($def_md_info->module_srl);
-		$reason = "관리자 취소";
+		
+		if(trim($in_args->cancle_desc) == "")
+		{
+			$reason = "관리자 취소";
+		}
+		else
+		{
+			$reason = trim($in_args->cancle_desc);
+		}
+		
 		require_once('libs/INIStdPayUtil.php');
 
 		$util = new INIStdPayUtil();
@@ -601,6 +610,7 @@ class inipaystandardController extends inipaystandard
 		if($insert_type == "A")
 		{
 			$log_args->cancle_amount = $log_args->payment_amount;
+			$log_args->cancle_desc = "관리자 취소";
 		}
 		else
 		{
