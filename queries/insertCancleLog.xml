@@ -18,6 +18,7 @@
 		<column name="part_cancle_amount" var="part_cancle_amount" />
 		<column name="part_cancle_type" var="part_cancle_type" />
 		<column name="part_cancle_cnt" var="part_cancle_cnt" />
+		<column name="cancle_desc" var="cancle_desc" />
         <column name="regdate" var="regdate" default="curdate()" />
     </columns>
 </query>

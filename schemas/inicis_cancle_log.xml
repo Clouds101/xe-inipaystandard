@@ -9,6 +9,7 @@
 	<column name="cancle_amount" type="number" size="11" default="0" notnull="notnull" />
 	<!-- A : all , B : part -->
 	<column name="cancle_type" type="char" size="1" />
+	<column name="cancle_desc" type="varchar" size="250" />
 	<column name="pg_tid" type="varchar" size="250" />
 	<!-- part cancle log-->
 	<column name="ori_tid" type="varchar" size="250" />
