@@ -492,15 +492,18 @@ class inipaystandardController extends inipaystandard
 	 */
 	function doCanclePart($in_args)
 	{
-		/*
-		[order_srl] => 266
-	[cancle_part_price] => 12
-	*/
+
 		$oModuleModel = getModel('module');
 		$oEpayModel = getModel('epay');
 		$transaction_info = $oEpayModel->getTransactionByOrderSrl($in_args->order_srl);
 
 		$total_price = $transaction_info->payment_amount;
+		$ca_output = executeQueryArray("inipaystandard.getCancleListByOrderSrl",$transaction_info);
+		foreach ($ca_output->data as $key => $cancleInfo)
+		{
+			$total_price = $total_price - $cancleInfo->cancle_amount;
+		}
+
 		$re_price = (int)$total_price-(int)$in_args->cancle_part_price;
 
 		$sel_args = new stdClass;
@@ -590,15 +593,15 @@ class inipaystandardController extends inipaystandard
 
 	function insertCardCancleLog($log_args,$insert_type="A")
 	{
+		$log_args->cancle_type = $insert_type;
 		if($insert_type == "A")
 		{
 			$log_args->cancle_amount = $log_args->payment_amount;
-			$log_args->cancle_type = $insert_type;
 		}
 		else
 		{
-			$log_args->cancle_amount = 0;
-			$log_args->cancle_type = $insert_type;
+			
+			$log_args->cancle_amount = $log_args->part_cancle_amount;
 		}
 		executeQueryArray("inipaystandard.insertCancleLog",$log_args);
 	}
