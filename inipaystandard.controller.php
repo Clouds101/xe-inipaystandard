@@ -488,11 +488,10 @@ class inipaystandardController extends inipaystandard
 	}
 
 	/**
-	 * @brief 이니시스 카드 결제 전체 취소
+	 * @brief 이니시스 카드 결제 부분 취소
 	 */
 	function doCanclePart($in_args)
 	{
-
 		$oModuleModel = getModel('module');
 		$oEpayModel = getModel('epay');
 
