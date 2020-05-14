@@ -495,6 +495,10 @@ class inipaystandardController extends inipaystandard
 
 		$oModuleModel = getModel('module');
 		$oEpayModel = getModel('epay');
+
+		$ca_output = executeQueryArray("inipaystandard.getCancleListByOrderSrl",$in_args);
+		if(count($ca_output->data) > 0) return false;
+
 		$transaction_info = $oEpayModel->getTransactionByOrderSrl($in_args->order_srl);
 
 		$total_price = $transaction_info->payment_amount;
