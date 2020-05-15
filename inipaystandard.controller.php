@@ -440,7 +440,8 @@ class inipaystandardController extends inipaystandard
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($authMap));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); 
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 		$chRs = curl_exec ($ch);
 		$chCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
@@ -554,7 +555,8 @@ class inipaystandardController extends inipaystandard
 		curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($authMap));
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); 
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 		$chRs = curl_exec ($ch);
 		$chCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
