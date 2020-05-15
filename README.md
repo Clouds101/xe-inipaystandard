@@ -25,7 +25,7 @@ XE 관리자 페이지 첫 화면에서 테이블생성
 <br/>
 관리자 페이지 - 사용 여부 옵션 조절<br/>
 <br/>
-<img src="https://user-images.githubusercontent.com/21264714/81781576-4dd69280-9533-11ea-8ddc-ea7ff7fd9de0.png"><br/>
+![nuri_admin2](https://user-images.githubusercontent.com/21264714/82002278-5e544d80-9698-11ea-8bbf-2721bc2f499e.png)<br/>
 주문 관리 - 취소가 완료 되었을때<br/>
 입급완료 상태에서 -> 취소로 변경하면 해당 주문의 카드 결제도 같이 취소 됩니다.<br/>
 <br/>
