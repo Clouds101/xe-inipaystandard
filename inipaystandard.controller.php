@@ -206,10 +206,11 @@ class inipaystandardController extends inipaystandard
 			return $this->makeObject(-1, 'could not find transaction');
 		}
 
-		if($transaction_info->state == 2)
+		if($transaction_info->state != 1)
 		{
-			Context::close();
+			//입금 대기 상태가 아니면 커넥션을 종료합니다.
 			echo "OK";
+			Context::close();
 			exit;
 		}
 
