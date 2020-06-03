@@ -475,6 +475,7 @@ class inipaystandardController extends inipaystandard
 
 			$u_args->extra_vars = serialize($extra_vars);
 			$output = executeQuery('epay.updateTransaction', $u_args);
+			ModuleHandler::triggerCall('inipaystandard.cancle', 'after', $transaction_info);
 			if(!$output->toBool())
 			{
 				return false;
@@ -589,6 +590,7 @@ class inipaystandardController extends inipaystandard
 				$transaction_info->part_cancle_cnt = $ini_result->prtcCnt;
 				$transaction_info->cancle_desc = $reason;
 				$this->insertCardCancleLog($transaction_info,"P");
+				ModuleHandler::triggerCall('inipaystandard.partCancle', 'after', $transaction_info);
 				return $part_result;
 			}
 			else
